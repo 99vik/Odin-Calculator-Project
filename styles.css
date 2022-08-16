@@ -54,4 +54,6 @@ button.operator {
     background-color: rgb(255, 166, 0);
 }
 
-
+button:hover {
+    filter: brightness(90%);
+}
