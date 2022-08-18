@@ -1,25 +1,25 @@
 function add() {
-    lowerScreen.textContent = first + second;
-    operator = 0;
     temp = first + second;
+    lowerScreen.textContent = temp;
+    operator = 0;
 }
 
 function subtract() {
-    lowerScreen.textContent = first - second;
-    operator = 0;
     temp = first - second;
+    lowerScreen.textContent = temp;
+    operator = 0;
 }
 
 function multiply() {
-    lowerScreen.textContent = first * second;
-    operator = 0;
     temp = first*second;
+    lowerScreen.textContent = temp;
+    operator = 0;
 }
 
 function divide() {
-    lowerScreen.textContent = first / second;
-    operator = 0;
     temp = first/second;
+    lowerScreen.textContent = temp;
+    operator = 0;
 }
 
 function executeOperation() {
@@ -69,7 +69,6 @@ const acButton = document.querySelector('button.ac');
 const equalsButton = document.querySelector('button.equals');
 const delButton = document.querySelector('button.del');
 const decimalButton = document.querySelector('button.decimal');
-
 //when operator is pressed initiate operation that 
 //inputs previously entered number that is on screen, and waits
 //for the second number, arithmetic operation is execuded when
@@ -78,10 +77,11 @@ const decimalButton = document.querySelector('button.decimal');
 //show up entered numbers on screen
 numberButtons.forEach(button => {
     button.addEventListener('click', (e) => {
+        if (temp.length > 7) return
         if (justFinished == 1) {
             initialState();
         }
-        if (upperScreen.textContent == 0) {
+        if (upperScreen.textContent == 0 && decimalIn == 0) {
             upperScreen.textContent = e.target.textContent;
         }
         else upperScreen.textContent += e.target.textContent;
@@ -106,6 +106,14 @@ operatorButtons.forEach(button => {
         decimalIn = 0;
         upperScreen.textContent += " " + e.target.textContent + " ";
     });
+});
+
+//keyboard support
+window.addEventListener('keydown', (e) => {
+    const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+    if (!key) return
+    console.log(key);
+    key.click();
 });
 
 equalsButton.addEventListener('click', () => executeOperation());
