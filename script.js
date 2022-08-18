@@ -85,7 +85,6 @@ function addDecimal() {
             upperScreen.textContent = first + " / " + temp;
         break;    
         }
-    console.log(temp);
 }
 const upperScreen = document.querySelector('.screen .upper');
 const lowerScreen = document.querySelector('.screen .lower');
@@ -114,7 +113,6 @@ numberButtons.forEach(button => {
         if (temp == 0 && decimalIn == 0) {
             temp = e.target.textContent;
         } else temp += e.target.textContent;
-        console.log(temp);
     });
 });
 
