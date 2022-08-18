@@ -1,23 +1,32 @@
 function add() {
     temp = first + second;
+    temp = Math.round(temp * 100000) / 100000;
     lowerScreen.textContent = temp;
     operator = 0;
 }
 
 function subtract() {
     temp = first - second;
+    temp = Math.round(temp * 100000) / 100000;
     lowerScreen.textContent = temp;
     operator = 0;
 }
 
 function multiply() {
     temp = first*second;
+    temp = Math.round(temp * 100000) / 100000;
     lowerScreen.textContent = temp;
     operator = 0;
 }
 
 function divide() {
+    if (second == 0) {
+        initialState();
+        upperScreen.textContent ="#ERROR";
+        return
+    }
     temp = first/second;
+    temp = Math.round(temp * 100000) / 100000;
     lowerScreen.textContent = temp;
     operator = 0;
 }
@@ -49,17 +58,34 @@ function deleteLastNumber() {
     temp = temp.slice(0,temp.length - 1);
     if (operator == 0) {
         upperScreen.textContent = temp;
-    } else upperScreen.textContent = first + " + " + " " + temp;
+    } else upperScreen.textContent = first + " + " + temp;
     
 }
 function addDecimal() {
     if (decimalIn != 0) return;
+    if (justFinished == 1 && (temp%1) != 0 ) {
+        initialState();
+    }
     decimalIn = 1;
     temp += ".";
     justFinished = 0;
     if (operator == 0) {
         upperScreen.textContent = temp;
-    } else upperScreen.textContent = first + " + " + " " + temp;
+    } else switch(operator) {
+        case 'add':
+            upperScreen.textContent = first + " + " + temp;
+        break;
+        case 'subtract':
+            upperScreen.textContent = first + " - " + temp;
+        break;
+        case 'multiply':
+            upperScreen.textContent = first + " * " + temp;
+        break;
+        case 'divide':
+            upperScreen.textContent = first + " / " + temp;
+        break;    
+        }
+    console.log(temp);
 }
 const upperScreen = document.querySelector('.screen .upper');
 const lowerScreen = document.querySelector('.screen .lower');
@@ -85,9 +111,10 @@ numberButtons.forEach(button => {
             upperScreen.textContent = e.target.textContent;
         }
         else upperScreen.textContent += e.target.textContent;
-        if (temp == 0) {
+        if (temp == 0 && decimalIn == 0) {
             temp = e.target.textContent;
         } else temp += e.target.textContent;
+        console.log(temp);
     });
 });
 
@@ -112,7 +139,6 @@ operatorButtons.forEach(button => {
 window.addEventListener('keydown', (e) => {
     const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
     if (!key) return
-    console.log(key);
     key.click();
 });
 
@@ -137,7 +163,6 @@ function initialState() {
     temp = 0;
     first = 0;
     second = 0;
-    temp = 0;
     upperScreen.textContent = temp;
     lowerScreen.textContent = "";
 }
