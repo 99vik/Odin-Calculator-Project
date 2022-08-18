@@ -58,7 +58,20 @@ function deleteLastNumber() {
     temp = temp.slice(0,temp.length - 1);
     if (operator == 0) {
         upperScreen.textContent = temp;
-    } else upperScreen.textContent = first + " + " + temp;
+    } else switch(operator) {
+        case 'add':
+            upperScreen.textContent = first + " + " + temp;
+        break;
+        case 'subtract':
+            upperScreen.textContent = first + " - " + temp;
+        break;
+        case 'multiply':
+            upperScreen.textContent = first + " * " + temp;
+        break;
+        case 'divide':
+            upperScreen.textContent = first + " / " + temp;
+        break;    
+        }
     
 }
 function addDecimal() {
