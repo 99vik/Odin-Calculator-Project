@@ -126,6 +126,7 @@ numberButtons.forEach(button => {
         if (temp == 0 && decimalIn == 0) {
             temp = e.target.textContent;
         } else temp += e.target.textContent;
+        console.log("temp=" + temp);
     });
 });
 
@@ -137,7 +138,12 @@ operatorButtons.forEach(button => {
             lowerScreen.textContent = "";
             justFinished = 0;
         }
-        if (operator != 0) return;
+        if (operator != 0) {
+            executeOperation();
+            upperScreen.textContent = temp;
+            lowerScreen.textContent = "";
+            justFinished = 0;
+        }
         operator = e.target.classList[1];
         first = temp*1; 
         temp = 0;
